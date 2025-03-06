@@ -57,7 +57,7 @@ public class Player : MonoBehaviour
         
         if (speed < 2.5 || transform.position.y - (floor.transform.position.y + floorDist) > 0.5)
         {
-            if(speed < 15)
+            if(speed < 10)
             {
                 if (Input.GetKey(KeyCode.D))
                 {
