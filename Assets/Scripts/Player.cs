@@ -86,7 +86,7 @@ public class Player : MonoBehaviour
     {
         Vector3 playerPos = transform.position;
         
-        float playerPosCount;
+        //float playerPosCount;
 
         // Debug.Log($"PLAYER:{playerPos.x}");
         
