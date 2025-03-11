@@ -55,10 +55,6 @@ public class Player : MonoBehaviour
             }
         }
         
-        if (speed < 2.5 || transform.position.y - (floor.transform.position.y + floorDist) > 0.5)
-        {
-            if(speed < 10)
-            {
                 if (Input.GetKey(KeyCode.D))
                 {
                     rb.velocity += transform.right * Time.deltaTime * movementSpeed;
@@ -67,6 +63,10 @@ public class Player : MonoBehaviour
                 {
                     rb.velocity -= transform.right * Time.deltaTime * movementSpeed;
                 }
+        if (speed < 2.5 || transform.position.y - (floor.transform.position.y + floorDist) > 0.5)
+        {
+            if(speed < 10)
+            {
             }
         }
     }
