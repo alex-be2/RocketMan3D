@@ -20,7 +20,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        playerMat.color = Color.green;
+        playerMat.color = Color.blue;
     }
 
     void Update()
