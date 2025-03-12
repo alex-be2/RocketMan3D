@@ -94,14 +94,6 @@ public class Player : MonoBehaviour
     {
         Vector3 playerPos = transform.position;
 
-        //float playerPosCount;
-
-        // Debug.Log($"PLAYER:{playerPos.x}");
-
-        // Debug.Log($"LIGHT:{positionCount}");
-
-
-
         if (playerPos.x >= positionCount)
         {
             Vector3 spotlightPos = new Vector3(positionCount + 50, 8f, 4.3f);
