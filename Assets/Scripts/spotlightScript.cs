@@ -14,6 +14,6 @@ public class spotlightScript : MonoBehaviour
             Destroy(gameObject);
         }
         //Debug.Log($"PLAYER: {player.transform.position.x}");
-        Debug.Log($"SUM: {player.transform.position.x - currentPos.x}");
+        //Debug.Log($"SUM: {player.transform.position.x - currentPos.x}");
     }
 }

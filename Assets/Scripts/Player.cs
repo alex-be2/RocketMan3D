@@ -54,7 +54,7 @@ public class Player : MonoBehaviour
 
         lastPosition = transform.position;
 
-        Debug.Log(speed);
+        //Debug.Log(speed);
 
         Transform floorScale = Floor.GetComponent<Transform>();
 
@@ -131,10 +131,10 @@ public class Player : MonoBehaviour
         // if(delayTime>2f)
         // {
         // }
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             rocketLauncherRotation = rocketLauncher.rotation;
-            GameObject rocket = Instantiate(RocketPrefab, rocketLauncher.position + rocketLauncher.right, rocketLauncherRotation);
+            GameObject rocket = Instantiate(RocketPrefab, rocketLauncher.position + rocketLauncher.right*1.4f, rocketLauncherRotation);
 
             Rigidbody rb = rocket.GetComponent<Rigidbody>();
             rb.AddForce(rocket.transform.right * initialRocketPropulsion);
