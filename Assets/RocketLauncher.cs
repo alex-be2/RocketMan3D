@@ -4,19 +4,17 @@ using UnityEngine;
 
 public class RocketLauncher : MonoBehaviour
 {
-    void Start()
-    {
-        
-    }
+    [SerializeField] private float rotationSpeed;
 
     void Update()
     {
-        Vector3 mousePosition = Input.mousePosition;
-
-        mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
-
-        Vector2 direction = new Vector2(mousePosition.x - transform.position.x, mousePosition.y - transform.position.y);
-
-        //transform.rotation = direction;
+        // if (Input.GetKey(KeyCode.Q))
+        // {
+        //     transform.Rotate(0,0,rotationSpeed * Time.deltaTime);       
+        // }
+        // if (Input.GetKey(KeyCode.E))
+        // {
+        //     transform.Rotate(0,0,-rotationSpeed * Time.deltaTime);
+        // }
     }
 }

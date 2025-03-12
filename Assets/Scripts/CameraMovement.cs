@@ -18,6 +18,8 @@ public class CameraMovement : MonoBehaviour
     void Update()
     {
         Vector3 targetPos = target.position+offset;
+
+        targetPos.y = 2f;
         transform.position = Vector3.Lerp(transform.position, targetPos, smoothTime);
         /*Debug.Log(targetPos);
         targetPos = transform.position-Player.position;
