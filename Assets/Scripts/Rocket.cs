@@ -23,6 +23,7 @@ public class Rocket : MonoBehaviour
 
     void Start()
     {
+        //find game object is expensive so call once at start
         smokeTrails = GameObject.Find("SmokeTrails").transform;
         explosions = GameObject.Find("Explosions").transform;
     }
