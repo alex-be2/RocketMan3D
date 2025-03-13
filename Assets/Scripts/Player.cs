@@ -36,7 +36,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        playerMat.color = Color.blue;
+        playerMat.color = Color.grey;
 
         //Instantiate(spotLightBG, transform.position, Quaternion.identity);
     }
@@ -125,7 +125,7 @@ public class Player : MonoBehaviour
         {
             rocketLauncherRotation = rocketLauncher.rotation;
             GameObject rocket = Instantiate(RocketPrefab, rocketLauncher.position + rocketLauncher.right*1.4f, rocketLauncherRotation, rockets);
-    
+
             Rigidbody rb = rocket.GetComponent<Rigidbody>();
             rb.AddForce(rocket.transform.right * initialRocketPropulsion);
         }
