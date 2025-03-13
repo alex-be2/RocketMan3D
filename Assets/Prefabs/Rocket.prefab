@@ -523,7 +523,7 @@ SphereCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
@@ -607,7 +607,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   propulsion: 25
-  angularDrag: 25
+  angularDrag: 100
   explosionForce: 200
   explosionRadius: 20
   ExplosionPrefab: {fileID: 1571202928808262718, guid: a819300f7406e134bbd115c99205fffd, type: 3}
