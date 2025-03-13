@@ -157,6 +157,7 @@ MonoBehaviour:
   collectableMat: {fileID: 2100000, guid: b12d31025a316614f96f8b83a4c9128b, type: 2}
   playerMat: {fileID: 2100000, guid: a704d519cf53b4642bb416905e98af0b, type: 2}
   colours: []
+  renderer: {fileID: 85694379}
 --- !u!65 &85694378
 BoxCollider:
   m_ObjectHideFlags: 0

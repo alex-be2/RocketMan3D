@@ -8,6 +8,7 @@ public class Collectable : MonoBehaviour
     [SerializeField] private Material collectableMat;
     [SerializeField] private Material playerMat;
     [SerializeField] private List<Color> colours = new List<Color>();
+    [SerializeField] private Renderer renderer;
 
     void Start()
     {
@@ -32,5 +33,21 @@ public class Collectable : MonoBehaviour
     {
         playerMat.color = Color.Lerp(playerMat.color, Color.green, 5f * Time.deltaTime);
         //green.color = Color.white;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        renderer.enabled = false;
+        gameObject.AddComponent<Light>();
+
+        Light light = gameObject.GetComponent<Light>();
+        
+        light.intensity = 2;
+        light.color = Color.green;
+        light.range = 5;
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        //renderer.enabled = true;
     }
 }

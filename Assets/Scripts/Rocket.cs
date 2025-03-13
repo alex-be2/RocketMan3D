@@ -45,7 +45,7 @@ public class Rocket : MonoBehaviour
 
             if(rb != null)
             {
-                rb.AddExplosionForce(explosionForce, transform.position, explosionRadius, 5f, ForceMode.Impulse);
+                rb.AddExplosionForce(explosionForce, transform.position, explosionRadius, 3f, ForceMode.Impulse);
             }
         }
 
