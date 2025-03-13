@@ -107,15 +107,11 @@ public class Player : MonoBehaviour
     }
     void RocketLauncher()
     {
-        //controlls
-        if (Input.GetKey(KeyCode.Q))
-        {
-            rocketLauncher.transform.Rotate(0, 0, rocketLauncherRotationSpeed * Time.deltaTime, Space.Self);
-        }
-        if (Input.GetKey(KeyCode.E))
-        {
-            rocketLauncher.transform.Rotate(0, 0, -rocketLauncherRotationSpeed * Time.deltaTime, Space.Self);
-        }
+        Vector3 RLdirection = Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position);
+
+        float angle = Mathf.Atan2(RLdirection.y, RLdirection.x) *Mathf.Rad2Deg;
+
+        rocketLauncher.transform.rotation = Quaternion.AngleAxis(angle,Vector3.forward);
 
         //Firing the launcher
 
@@ -123,7 +119,7 @@ public class Player : MonoBehaviour
         // if(delayTime>2f)
         // {
         // }
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetMouseButtonDown(0))
         {
             rocketLauncherRotation = rocketLauncher.rotation;
             GameObject rocket = Instantiate(RocketPrefab, rocketLauncher.position + rocketLauncher.right*1.4f, rocketLauncherRotation);

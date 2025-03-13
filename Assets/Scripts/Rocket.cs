@@ -17,31 +17,40 @@ public class Rocket : MonoBehaviour
     [SerializeField] private Transform explosions;
 
 
-    
+
     void Update()
     {
-        transform.Rotate(540,0,0); 
+        transform.Rotate(540, 0, 0);
 
         Rigidbody rb = GetComponent<Rigidbody>();
 
-        rb.AddForce(transform.right*propulsion);   
+        rb.AddForce(transform.right * propulsion);
 
         rb.angularDrag = angularDrag;
 
-        GameObject smoke = Instantiate(SmokePrefab, transform.position-transform.right,Quaternion.identity,smokeTrails);
+        GameObject smoke = Instantiate(SmokePrefab, transform.position - transform.right, Quaternion.identity, smokeTrails);
 
-        Destroy(smoke,1.8f);
+        Destroy(smoke, 1.8f);
 
 
     }
 
     private void OnTriggerStay(Collider other)
     {
-        // Rigidbody rb = GetComponent<Rigidbody>();
-        // rb.AddExplosionForce(explosionForce,transform.position,explosionRadius);
+        Collider[] colliders = Physics.OverlapSphere(transform.position, explosionRadius);
 
-        GameObject explosion = Instantiate(ExplosionPrefab, transform.position,Quaternion.identity);
-        Destroy(explosion,1.8f);
+        foreach (Collider hit in colliders)
+        {
+            Rigidbody rb = hit.GetComponent<Rigidbody>();
+
+            if(rb != null)
+            {
+                rb.AddExplosionForce(explosionForce, transform.position, explosionRadius, 5f, ForceMode.Impulse);
+            }
+        }
+
+        GameObject explosion = Instantiate(ExplosionPrefab, transform.position, Quaternion.identity);
+        Destroy(explosion, 1.8f);
         Destroy(gameObject);
     }
 }

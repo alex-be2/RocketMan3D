@@ -608,10 +608,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   propulsion: 25
   angularDrag: 25
-  explosionForce: 100
-  explosionRadius: 10
+  explosionForce: 200
+  explosionRadius: 20
   ExplosionPrefab: {fileID: 1571202928808262718, guid: a819300f7406e134bbd115c99205fffd, type: 3}
   SmokePrefab: {fileID: 1571202928808262718, guid: 5054eef8d7218dc4ea190266dd353967, type: 3}
+  smokeTrails: {fileID: 0}
+  explosions: {fileID: 0}
 --- !u!65 &6551864959523256416
 BoxCollider:
   m_ObjectHideFlags: 0
