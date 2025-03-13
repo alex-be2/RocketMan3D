@@ -35,7 +35,7 @@ public class CameraMovement : MonoBehaviour
 
         lastPosition = target.transform.position;
 
-        Debug.Log(speed);
+        //Debug.Log(speed);
 
         if (speed < 20)
         {
@@ -58,7 +58,7 @@ public class CameraMovement : MonoBehaviour
             zoomValue = 10;
         }
     
-        Debug.Log(offset);
+        //Debug.Log(offset);
         offset = new Vector3(0, 4, -15 - zoomValue);
 
         // if (scrollWheel != 0)

@@ -27,6 +27,8 @@ public class Player : MonoBehaviour
     private Quaternion rocketLauncherRotation;
     [SerializeField] private float initialRocketPropulsion;
 
+    [SerializeField] private Transform rockets;
+
     ///
     /// 
     ///
@@ -122,8 +124,8 @@ public class Player : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             rocketLauncherRotation = rocketLauncher.rotation;
-            GameObject rocket = Instantiate(RocketPrefab, rocketLauncher.position + rocketLauncher.right*1.4f, rocketLauncherRotation);
-
+            GameObject rocket = Instantiate(RocketPrefab, rocketLauncher.position + rocketLauncher.right*1.4f, rocketLauncherRotation, rockets);
+    
             Rigidbody rb = rocket.GetComponent<Rigidbody>();
             rb.AddForce(rocket.transform.right * initialRocketPropulsion);
         }
