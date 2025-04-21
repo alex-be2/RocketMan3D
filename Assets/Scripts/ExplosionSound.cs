@@ -33,7 +33,7 @@ public class ExplosionSound : MonoBehaviour
 
 
         sfxExplosion.pitch = Random.Range(0.5f, 1);
-        //sfx.volume = 1;
+        //sfxExplosion.volume = 0.2f;
         if(!sfxExplosion.isPlaying)
         {
             sfxExplosion.Play();

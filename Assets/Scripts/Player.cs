@@ -28,17 +28,21 @@ public class Player : MonoBehaviour
     [SerializeField] private float initialRocketPropulsion;
 
     [SerializeField] private Transform rockets;
-
+    //Maps
     [SerializeField] private Transform MapParent;
     [SerializeField] private GameObject BasicMap;
     [SerializeField] private GameObject BasicMapNotBaked;
     [SerializeField] private GameObject HallwayMap;
     [SerializeField] private GameObject PitMap;
+    //Obstacles and Spikes
     [SerializeField] private Transform ObstacleParent;
     [SerializeField] private GameObject BottomObstacle;
     [SerializeField] private GameObject TopObstacle;
     [SerializeField] private Transform SpikesParent;
     [SerializeField] private GameObject Spikes;
+    //Pause Menu
+    [SerializeField] private GameObject PauseCanvas;
+    private bool isPaused;
 
     public float playerHealth;
 
@@ -68,11 +72,23 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+        Pause();
+        if(isPaused){return;}
         Movement();
         ObjectInstantiation();
         RocketLauncher();
 
         Debug.Log(playerHealth);
+    }
+
+    void Pause()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            isPaused = !isPaused;
+            PauseCanvas.SetActive(isPaused);
+            Time.timeScale = isPaused ? 0.05f : 1.0f;
+        }
     }
 
     Vector3 lastPosition = new Vector3();
