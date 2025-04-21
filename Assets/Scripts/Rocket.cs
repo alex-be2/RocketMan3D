@@ -54,13 +54,23 @@ public class Rocket : MonoBehaviour
             sfxFlying.Play();
         }
 
-        Debug.Log("BOOM");
+        //Debug.Log("BOOM");
 
 
     }
 
     private void OnTriggerStay(Collider other)
     {
+        GameObject player = GameObject.Find("Player");
+        GameObject rocketLauncher = GameObject.Find("RocketLauncher");
+        // if (other != player || other != rocketLauncher)
+        
+        Collider playerCollider = player.GetComponent<Collider>();
+        Collider rocketLauncherCollider = rocketLauncher.GetComponent<Collider>();
+
+        if (other != playerCollider && other != rocketLauncherCollider)
+        {
+
         Collider[] colliders = Physics.OverlapSphere(transform.position, explosionRadius);
 
         foreach (Collider hit in colliders)
@@ -80,6 +90,7 @@ public class Rocket : MonoBehaviour
 
         Destroy(explosion, 1.8f);
         Destroy(gameObject);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
