@@ -1,25 +1,22 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObstacleDetector : MonoBehaviour
+public class ObstacleBoostDetector : MonoBehaviour
 {
-    public Boolean detectedPlayer = false;
+
+    [SerializeField] private GameObject CollionDetector;
     private void OnTriggerStay(Collider other)
     {
         GameObject player = GameObject.Find("Player");
 
         Collider playerCollider = player.GetComponent<Collider>();
 
-        Debug.Log("hit");
-
-        if (other == playerCollider)
+        if (other == playerCollider && CollionDetector.GetComponent<ObstacleDetector>().detectedPlayer == true)
         {
             Player playerScript = player.GetComponent<Player>();
 
-            playerScript.speedCap = 0f;
-            detectedPlayer = true;
+            playerScript.speedCap = 40f;
 
         }
 

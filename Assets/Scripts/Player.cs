@@ -37,6 +37,10 @@ public class Player : MonoBehaviour
     [SerializeField] private Transform ObstacleParent;
     [SerializeField] private GameObject BottomObstacle;
     [SerializeField] private GameObject TopObstacle;
+    [SerializeField] private Transform SpikesParent;
+    [SerializeField] private GameObject Spikes;
+
+    public float playerHealth;
 
     GameObject[] maps = new GameObject[3];
     GameObject[] obstacles = new GameObject[2];
@@ -57,6 +61,8 @@ public class Player : MonoBehaviour
         obstacles[0] = BottomObstacle;
         obstacles[1] = TopObstacle;
 
+        playerHealth = 100f;
+
         //Instantiate(spotLightBG, transform.position, Quaternion.identity);
     }
 
@@ -65,6 +71,8 @@ public class Player : MonoBehaviour
         Movement();
         ObjectInstantiation();
         RocketLauncher();
+
+        Debug.Log(playerHealth);
     }
 
     Vector3 lastPosition = new Vector3();
@@ -87,7 +95,7 @@ public class Player : MonoBehaviour
             rb.velocity += transform.right * Time.deltaTime * movementSpeed;
         }
 
-        Debug.Log(speedCap);
+        //Debug.Log(speedCap);
     }
 
     float positionCount;
@@ -130,14 +138,15 @@ public class Player : MonoBehaviour
                 GameObject background = Instantiate(maps[randomBG], backgroundPos, Quaternion.Euler(0,0,0), MapParent);
             }
 
-            //spawning obstacle
 
 
-            int chanceOfObstacle = Random.Range(0,4);
+            int chanceOfObstacle = Random.Range(0,2);
 
-            if (chanceOfObstacle == 1)
+            if (chanceOfObstacle == 0)
             {
-               
+                Debug.Log("obstacle");
+
+                //spawning obstacle
                 Vector3 topObstaclePos = backgroundPos;
 
                 topObstaclePos.y = 3.608f;
@@ -162,6 +171,39 @@ public class Player : MonoBehaviour
                         GameObject obstacle = Instantiate(BottomObstacle, bottomObstaclePos, Quaternion.identity, ObstacleParent);
                     }
                 }
+            }
+            else if (chanceOfObstacle == 1)
+            {
+                Debug.Log("spikes");
+                //spawning spikes
+                Vector3 topSpikesPos = backgroundPos;
+
+                topSpikesPos.y = 5.33f;
+                topSpikesPos.z = 0.18f;
+                
+                Vector3 bottomSpikesPos = backgroundPos;
+
+                bottomSpikesPos.y = -3.15f;
+                bottomSpikesPos.z = 0.18f;
+
+                if (randomBG == 1)
+                {
+                    GameObject obstacle = Instantiate(Spikes, topSpikesPos, Quaternion.identity, SpikesParent);
+                }
+                else
+                {
+                    int SpikesSelect = Random.Range(0,2);
+
+                    if (SpikesSelect == 1)
+                    {
+                        GameObject obstacle = Instantiate(Spikes, topSpikesPos, Quaternion.identity, SpikesParent);
+                    }
+                    else
+                    {
+                        GameObject obstacle = Instantiate(Spikes, bottomSpikesPos, Quaternion.identity, SpikesParent);
+                    }
+                }
+
             }
         }
 
