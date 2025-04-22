@@ -19,7 +19,7 @@ public class DestructableTower : MonoBehaviour
     [SerializeField] private GameObject cube06;
 
     List<GameObject> cubes = new List<GameObject>();
-    private float timer = 0.5f;
+    //private float timer = 0.5f;
 
 
     void Start()
@@ -54,21 +54,19 @@ public class DestructableTower : MonoBehaviour
 
         Collider playerCollider = player.GetComponent<Collider>();
 
-        if (playerCollider == other)
+        if (playerCollider == other && Time.timeScale>0.9f)
         {
-            //Debug.Log("green");
-            //Debug.Log(Time.timeScale);
+            // float timer = 1f;
 
-
-            Time.timeScale = Mathf.Lerp(1.0f, 0.2f, 5.0f);
-
-            timer -= Time.deltaTime;
-            
-            Debug.Log(timer );
-            if (timer < 0.5f)
-            {
-            Time.timeScale = Mathf.Lerp(0.2f, 1.0f, 5.0f);
-            }
+            // if (timer > 0)
+            // {
+            //     timer -= Time.deltaTime;
+            //     Time.timeScale = Mathf.Lerp(Time.timeScale, 0.6f,0.8f);
+            // }
+            // else
+            // {
+            //     Time.timeScale = Mathf.Lerp(Time.timeScale, 1.0f,0.8f);
+            // }
         }
 
     }

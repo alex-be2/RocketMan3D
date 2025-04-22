@@ -10,14 +10,14 @@ public class SpikeDetector : MonoBehaviour
 
         Collider playerCollider = player.GetComponent<Collider>();
 
-        Debug.Log("hitSpike");
+        //Debug.Log("hitSpike");
 
         if (other == playerCollider)
         {
             Player playerScript = player.GetComponent<Player>();
             //playerScript.playerHealth = Mathf.Lerp(playerScript.playerHealth, playerScript.playerHealth-10, 0.1f);
-            playerScript.playerHealth -= 100f;
-            Debug.Log("ouch");
+            playerScript.playerHealth -= 25f;
+            //Debug.Log("ouch");
 
         }
 

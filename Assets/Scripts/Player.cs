@@ -1,12 +1,16 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+//using System.Numerics;
 using System.Runtime.CompilerServices;
+using Unity.VisualScripting;
 using UnityEditor.Experimental.GraphView;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 //using UnityEngine.UIElements;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.Video;
 
 public class Player : MonoBehaviour
 {
@@ -52,13 +56,18 @@ public class Player : MonoBehaviour
     [SerializeField] private Image HealthDisplay;
     [SerializeField] private GameObject DeadCanvas;
     public float playerHealth;
-    
+
+    //Pick Ups
+    [SerializeField] private GameObject PickUpOneGameObject;
+    [SerializeField] private GameObject PickUpTwoGameObject;
+    [SerializeField] private Transform PickUpParent;
+
 
     GameObject[] maps = new GameObject[3];
     GameObject[] obstacles = new GameObject[2];
 
     ///
-    /// 
+    ///
     ///
     private Rigidbody rb;
     void Start()
@@ -88,7 +97,20 @@ public class Player : MonoBehaviour
         ObjectInstantiation();
         RocketLauncher();
         HealthManagement();
+        CalculatePoints();
+    }
 
+    void CalculatePoints()
+    {
+        Vector3 initialPos = new Vector3(0,0,0);
+        float distanceFromStart = Vector3.Distance(initialPos, transform.position);
+
+        
+    } 
+
+    public void ReloadScene()
+    {
+        SceneManager.LoadScene("MainGame");
     }
 
     void HealthManagement()
@@ -115,7 +137,7 @@ public class Player : MonoBehaviour
         isPaused = !isPaused;
         PauseCanvas.SetActive(isPaused);
         Time.timeScale = isPaused ? 0.05f : 1.0f;
-    
+
     }
 
     Vector3 lastPosition = new Vector3();
@@ -161,7 +183,7 @@ public class Player : MonoBehaviour
         //spawning map
 
         Vector3 playerPos = transform.position;
-        
+
         if (playerPos.x >= positionCountBG-50)
         {
             Vector3 backgroundPos = new Vector3(positionCountBG + 30, 1.7f, -0.4f);
@@ -173,7 +195,7 @@ public class Player : MonoBehaviour
             if (BGInitialCount == 0)
             {
                 GameObject initalBackground = Instantiate(BasicMapNotBaked, backgroundPos, Quaternion.Euler(0,0,0), MapParent);
-                
+
                 BGInitialCount = 1;
             }
             else
@@ -193,7 +215,7 @@ public class Player : MonoBehaviour
                 Vector3 topObstaclePos = backgroundPos;
 
                 topObstaclePos.y = 3.608f;
-                
+
                 Vector3 bottomObstaclePos = backgroundPos;
 
                 bottomObstaclePos.y = -1.423f;
@@ -208,7 +230,7 @@ public class Player : MonoBehaviour
                     if (ObstacleSelect == 1)
                     {
                         GameObject obstacle = Instantiate(TopObstacle, topObstaclePos, Quaternion.identity, ObstacleParent);
-                    } 
+                    }
                     else
                     {
                         GameObject obstacle = Instantiate(BottomObstacle, bottomObstaclePos, Quaternion.identity, ObstacleParent);
@@ -223,7 +245,7 @@ public class Player : MonoBehaviour
 
                 topSpikesPos.y = 5.33f;
                 topSpikesPos.z = 0.18f;
-                
+
                 Vector3 bottomSpikesPos = backgroundPos;
 
                 bottomSpikesPos.y = -3.15f;
@@ -261,10 +283,21 @@ public class Player : MonoBehaviour
                 }
 
             }
+
+            Vector3 PickUpOnePos = backgroundPos;
+            PickUpOnePos.y = UnityEngine.Random.Range(-2,4);
+            PickUpOnePos.x = UnityEngine.Random.Range(backgroundPos.x-15,backgroundPos.x+15);
+
+            // Vector3 PickUpTwoPos = backgroundPos;
+            // PickUpTwoPos.y = UnityEngine.Random.Range(-2,4);
+            // PickUpTwoPos.x = UnityEngine.Random.Range(backgroundPos.x-15,backgroundPos.x+15);
+
+            GameObject PickUpOne = Instantiate(PickUpOneGameObject, PickUpOnePos, Quaternion.identity, PickUpParent);
+            // GameObject PickUpTwo = Instantiate(PickUpTwoGameObject, PickUpTwoPos, Quaternion.identity, PickUpParent);
         }
 
 
-        
+
 
 
     }
