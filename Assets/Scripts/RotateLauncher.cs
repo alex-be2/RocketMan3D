@@ -42,13 +42,14 @@ public class RotateLauncher : MonoBehaviour
 
     
 
-
+    
         float facingAngle = transform.eulerAngles.z;
 
         if (facingAngle >= 180)
         {
-                 transform.Rotate(Vector3.forward *1000* Time.deltaTime);
+                transform.Rotate(Vector3.forward *1000* Time.deltaTime);
         }
+        
         //Debug.Log("Facing Angle: " + facingAngle);
 
         // if(transform.eulerAngles.z < 300 && transform.eulerAngles.z > 180)

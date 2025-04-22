@@ -4,10 +4,6 @@ using UnityEngine;
 
 public class ObstacleSpikeScript : MonoBehaviour
 {
-    void Start()
-    {
-           
-    }
     void Update()
     {
         GameObject player = GameObject.Find("Player");

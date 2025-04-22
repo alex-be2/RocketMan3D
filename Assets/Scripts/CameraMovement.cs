@@ -19,7 +19,7 @@ public class CameraMovement : MonoBehaviour
     float scrollValue;
     float zoomValue;
 
-    Vector3 lastPosition = new Vector3();
+    //Vector3 lastPosition = new Vector3();
 
     void Update()
     {

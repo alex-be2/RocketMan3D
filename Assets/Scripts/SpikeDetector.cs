@@ -15,8 +15,8 @@ public class SpikeDetector : MonoBehaviour
         if (other == playerCollider)
         {
             Player playerScript = player.GetComponent<Player>();
-
-            playerScript.playerHealth -= 10f;
+            //playerScript.playerHealth = Mathf.Lerp(playerScript.playerHealth, playerScript.playerHealth-10, 0.1f);
+            playerScript.playerHealth -= 100f;
             Debug.Log("ouch");
 
         }

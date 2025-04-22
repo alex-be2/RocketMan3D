@@ -1,10 +1,12 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEditor.Experimental.GraphView;
 using UnityEditor.SceneManagement;
 using UnityEngine;
-using UnityEngine.UIElements;
+//using UnityEngine.UIElements;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -34,17 +36,23 @@ public class Player : MonoBehaviour
     [SerializeField] private GameObject BasicMapNotBaked;
     [SerializeField] private GameObject HallwayMap;
     [SerializeField] private GameObject PitMap;
-    //Obstacles and Spikes
+    //Obstacles Spikes Tower
     [SerializeField] private Transform ObstacleParent;
     [SerializeField] private GameObject BottomObstacle;
     [SerializeField] private GameObject TopObstacle;
     [SerializeField] private Transform SpikesParent;
     [SerializeField] private GameObject Spikes;
+    [SerializeField] private Transform TowerParent;
+    [SerializeField] private GameObject Tower;
     //Pause Menu
     [SerializeField] private GameObject PauseCanvas;
     private bool isPaused;
 
+    //player health
+    [SerializeField] private Image HealthDisplay;
+    [SerializeField] private GameObject DeadCanvas;
     public float playerHealth;
+    
 
     GameObject[] maps = new GameObject[3];
     GameObject[] obstacles = new GameObject[2];
@@ -67,28 +75,47 @@ public class Player : MonoBehaviour
 
         playerHealth = 100f;
 
+        Time.timeScale = 1.0f;
+
         //Instantiate(spotLightBG, transform.position, Quaternion.identity);
     }
 
     void Update()
     {
-        Pause();
+        KeyPause();
         if(isPaused){return;}
         Movement();
         ObjectInstantiation();
         RocketLauncher();
+        HealthManagement();
 
-        Debug.Log(playerHealth);
     }
 
-    void Pause()
+    void HealthManagement()
+    {
+        HealthDisplay.fillAmount = Mathf.Lerp(HealthDisplay.fillAmount, playerHealth / 100 , 0.1f);
+        if (playerHealth <= 0)
+        {
+            DeadCanvas.SetActive(true);
+
+            Time.timeScale = Mathf.Lerp(Time.timeScale, 0, 0.1f);
+            // Time.timeScale = 0;
+        }
+    }
+
+    void KeyPause()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            isPaused = !isPaused;
-            PauseCanvas.SetActive(isPaused);
-            Time.timeScale = isPaused ? 0.05f : 1.0f;
+            Pause();
         }
+    }
+    public void Pause()
+    {
+        isPaused = !isPaused;
+        PauseCanvas.SetActive(isPaused);
+        Time.timeScale = isPaused ? 0.05f : 1.0f;
+    
     }
 
     Vector3 lastPosition = new Vector3();
@@ -141,7 +168,7 @@ public class Player : MonoBehaviour
 
             positionCountBG += 50;
 
-            int randomBG = Random.Range(0,2);
+            int randomBG = UnityEngine.Random.Range(0,2);
 
             if (BGInitialCount == 0)
             {
@@ -156,11 +183,11 @@ public class Player : MonoBehaviour
 
 
 
-            int chanceOfObstacle = Random.Range(0,2);
+            int chanceOfObstacle = UnityEngine.Random.Range(0,3);
 
             if (chanceOfObstacle == 0)
             {
-                Debug.Log("obstacle");
+                //Debug.Log("obstacle");
 
                 //spawning obstacle
                 Vector3 topObstaclePos = backgroundPos;
@@ -176,7 +203,7 @@ public class Player : MonoBehaviour
                 }
                 else
                 {
-                    int ObstacleSelect = Random.Range(0,2);
+                    int ObstacleSelect = UnityEngine.Random.Range(0,2);
 
                     if (ObstacleSelect == 1)
                     {
@@ -190,7 +217,7 @@ public class Player : MonoBehaviour
             }
             else if (chanceOfObstacle == 1)
             {
-                Debug.Log("spikes");
+                //Debug.Log("spikes");
                 //spawning spikes
                 Vector3 topSpikesPos = backgroundPos;
 
@@ -208,7 +235,7 @@ public class Player : MonoBehaviour
                 }
                 else
                 {
-                    int SpikesSelect = Random.Range(0,2);
+                    int SpikesSelect = UnityEngine.Random.Range(0,2);
 
                     if (SpikesSelect == 1)
                     {
@@ -218,6 +245,19 @@ public class Player : MonoBehaviour
                     {
                         GameObject obstacle = Instantiate(Spikes, bottomSpikesPos, Quaternion.identity, SpikesParent);
                     }
+                }
+
+            }
+            else if (chanceOfObstacle == 2)
+            {
+                //Debug.Log("tower");
+
+                Vector3 TowerPos = backgroundPos;
+                TowerPos.y = -2.089f;
+
+                if (randomBG != 1)
+                {
+                    GameObject tower = Instantiate(Tower, TowerPos, Quaternion.identity, TowerParent);
                 }
 
             }
@@ -232,25 +272,26 @@ public class Player : MonoBehaviour
 
     void RocketLauncher()
     {
-        Vector3 RLdirection = Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position);
-
-        float angle = Mathf.Atan2(RLdirection.y, RLdirection.x) *Mathf.Rad2Deg;
-
-        rocketLauncher.transform.rotation = Quaternion.AngleAxis(angle,Vector3.forward);
-
-        //Firing the launcher
-        if (Input.GetMouseButtonDown(0))
+        if (Time.timeScale >= 0.1f)
         {
-            rocketLauncherRotation = rocketLauncher.rotation;
-            GameObject rocket = Instantiate(RocketPrefab, rocketLauncher.position + rocketLauncher.right*1.4f, rocketLauncherRotation, rockets);
+            Vector3 RLdirection = Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position);
 
-            Rigidbody rb = rocket.GetComponent<Rigidbody>();
-            float speed = Vector3.Distance(lastPositionRocket, transform.position) * 100f;
-            rb.AddForce(rocket.transform.right * (initialRocketPropulsion+speed*0.4f) );
-            lastPositionRocket = transform.position;
+            float angle = Mathf.Atan2(RLdirection.y, RLdirection.x) *Mathf.Rad2Deg;
+
+            rocketLauncher.transform.rotation = Quaternion.AngleAxis(angle,Vector3.forward);
+
+            //Firing the launcher
+            if (Input.GetMouseButtonDown(0))
+            {
+                rocketLauncherRotation = rocketLauncher.rotation;
+                GameObject rocket = Instantiate(RocketPrefab, rocketLauncher.position + rocketLauncher.right*1.4f, rocketLauncherRotation, rockets);
+
+                Rigidbody rb = rocket.GetComponent<Rigidbody>();
+                float speed = Vector3.Distance(lastPositionRocket, transform.position) * 100f;
+                rb.AddForce(rocket.transform.right * (initialRocketPropulsion+speed*0.4f) );
+                lastPositionRocket = transform.position;
+            }
         }
-
-
     }
 
 

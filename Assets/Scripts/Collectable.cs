@@ -8,7 +8,7 @@ public class Collectable : MonoBehaviour
     [SerializeField] private Material collectableMat;
     [SerializeField] private Material playerMat;
     [SerializeField] private List<Color> colours = new List<Color>();
-    [SerializeField] private Renderer renderer;
+    [SerializeField] private Renderer collectableRenderer;
 
     void Start()
     {
@@ -37,7 +37,7 @@ public class Collectable : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        renderer.enabled = false;
+        collectableRenderer.enabled = false;
         gameObject.AddComponent<Light>();
 
         Light light = gameObject.GetComponent<Light>();
