@@ -11,7 +11,7 @@ public class CameraMovement : MonoBehaviour
     /*    [SerializeField] public float cMovementSpeed;
         [SerializeField] private Vector3 targetPos;
         [SerializeField] private Transform Player;*/
-    private Vector3 offset = new Vector3(8, 4, -15);
+    private Vector3 offset = new Vector3(10, 4, -15);
     private float smoothTime = 0.25f;
     //private Vector3 velocity = Vector3.zero;
     [SerializeField] private Transform target;

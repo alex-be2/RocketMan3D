@@ -15,6 +15,10 @@ public class PickUpScript : MonoBehaviour
 
     [SerializeField] private GameObject player;
 
+    [SerializeField] private GameObject SlowMoText;
+
+    [SerializeField] private GameObject ExtraPoints;
+
     Material[] mats = new Material[4];
     int randomMat;
 
@@ -45,7 +49,7 @@ public class PickUpScript : MonoBehaviour
             {
                 case 0:
                 //green is points
-                GreenPoints();
+                StartCoroutine(GreenPoints());
                 break;
                 case 1:
                 //red is health
@@ -63,9 +67,19 @@ public class PickUpScript : MonoBehaviour
         }       
     }
 
-    void GreenPoints()
+    IEnumerator GreenPoints()
     {
-        
+        ExtraPoints.SetActive(true);
+
+        HidePickUp();
+
+        yield return new WaitForSecondsRealtime(3f); 
+
+        Player playerScript = player.GetComponent<Player>();
+
+        playerScript.totalPoints += 2500;
+
+        Destroy(PickUpParent);
     }
     void RedHealth()
     {
@@ -80,15 +94,30 @@ public class PickUpScript : MonoBehaviour
     }
     IEnumerator BlueSlowMotion()
     {
+        SlowMoText.SetActive(true);
+
+        HidePickUp();
+
         //Need to use this as the function is not in update() and so can't use simple timer
         Time.timeScale = Mathf.Lerp(Time.timeScale, 0.1f,0.9f);
         yield return new WaitForSecondsRealtime(1f); 
         Time.timeScale = Mathf.Lerp(Time.timeScale, 1.0f,0.9f);
+
+        Player playerScript = player.GetComponent<Player>();
+
+        playerScript.totalPoints += 5000;
+
         Destroy(PickUpParent);
     }
     void YellowSlowEnemy()
     {
         
+    }
+
+    void HidePickUp()
+    {
+        InsideCube.GetComponent<Renderer>().enabled = false;
+        gameObject.GetComponent<Renderer>().enabled = false;
     }
 
 }

@@ -16,7 +16,7 @@ public class SpikeDetector : MonoBehaviour
         {
             Player playerScript = player.GetComponent<Player>();
             //playerScript.playerHealth = Mathf.Lerp(playerScript.playerHealth, playerScript.playerHealth-10, 0.1f);
-            playerScript.playerHealth -= 25f;
+            playerScript.playerHealth -= 500f;
             //Debug.Log("ouch");
 
         }

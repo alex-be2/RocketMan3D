@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 //using System.Numerics;
 using System.Runtime.CompilerServices;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEditor.Experimental.GraphView;
 using UnityEditor.SceneManagement;
@@ -62,6 +63,12 @@ public class Player : MonoBehaviour
     [SerializeField] private GameObject PickUpTwoGameObject;
     [SerializeField] private Transform PickUpParent;
 
+    //Points
+    [SerializeField] private GameObject PointsText;
+
+    [SerializeField] private GameObject BluePickUp;
+    public int totalPoints;
+
 
     GameObject[] maps = new GameObject[3];
     GameObject[] obstacles = new GameObject[2];
@@ -84,6 +91,8 @@ public class Player : MonoBehaviour
 
         playerHealth = 100f;
 
+        totalPoints = 0;
+
         Time.timeScale = 1.0f;
 
         //Instantiate(spotLightBG, transform.position, Quaternion.identity);
@@ -100,12 +109,22 @@ public class Player : MonoBehaviour
         CalculatePoints();
     }
 
+    Vector3 lastPositionPoints = new Vector3();
     void CalculatePoints()
     {
-        Vector3 initialPos = new Vector3(0,0,0);
-        float distanceFromStart = Vector3.Distance(initialPos, transform.position);
+        //if (BluePickUp.)
 
-        
+        float speedPoints = (Vector3.Distance(lastPositionPoints, transform.position) * 100f)/10;
+
+        lastPositionPoints = transform.position;
+
+        // Vector3 initialPos = new Vector3(0,0,0);
+        // float distanceFromStart = Vector3.Distance(initialPos, transform.position);
+
+        totalPoints += Convert.ToInt32(speedPoints);
+
+        PointsText.GetComponent<TextMeshProUGUI>().text = Convert.ToString(totalPoints);
+
     } 
 
     public void ReloadScene()
