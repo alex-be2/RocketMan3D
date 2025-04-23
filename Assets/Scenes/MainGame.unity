@@ -2023,7 +2023,8 @@ PrefabInstance:
       value: Eectric_Rifle_Final
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: -6129570967978960055, guid: f4631e29b6acc434ba27ac49361e374a, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: f4631e29b6acc434ba27ac49361e374a, type: 3}
