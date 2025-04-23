@@ -14,7 +14,6 @@ public class LavaFloorScript : MonoBehaviour
         {
             Player playerScript = player.GetComponent<Player>();
             playerScript.playerHealth -= 500f;
-            Debug.Log("LAVA!");
         }
 
     }

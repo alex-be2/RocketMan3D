@@ -87,7 +87,7 @@ public class Player : MonoBehaviour
 
 
 
-    GameObject[] maps = new GameObject[4];
+    GameObject[] maps = new GameObject[5];
     GameObject[] obstacles = new GameObject[2];
 
     ///
@@ -103,7 +103,7 @@ public class Player : MonoBehaviour
         maps[1] = HallwayMap;
         maps[2] = LavaMap;
         maps[3] = BasicMapCage;
-        //maps[2] = PitMap;
+        maps[4] = PitMap;
 
         obstacles[0] = BottomObstacle;
         obstacles[1] = TopObstacle;
@@ -132,6 +132,8 @@ public class Player : MonoBehaviour
         RocketLauncher();
         HealthManagement();
         CalculatePoints();
+        StartCoroutine(SlideBackAvoidance());
+        // SlideBackAvoidance();
         AmmoText.GetComponent<TextMeshProUGUI>().text = Convert.ToString(ammo);
     }
 
@@ -162,6 +164,24 @@ public class Player : MonoBehaviour
     public void ReloadScene()
     {
         SceneManager.LoadScene("MainGame");
+    }
+
+    Vector3 lastPositionSlideBack = new Vector3();
+
+    IEnumerator SlideBackAvoidance()
+    {
+        Vector3 movementDirection = (transform.position - lastPositionSlideBack).normalized;
+
+        lastPositionSlideBack = transform.position;
+
+        //Debug.Log(movementDirection);
+
+        if (movementDirection.x < 0)
+        {
+            Debug.Log("reverse");
+            yield return new WaitForSecondsRealtime(0.1f); 
+            speedCap = 9f;
+        }
     }
 
     void HealthManagement()
@@ -247,7 +267,7 @@ public class Player : MonoBehaviour
 
             positionCountBG += 50;
 
-            int randomBG = UnityEngine.Random.Range(0,4);
+            int randomBG = UnityEngine.Random.Range(0,5);
 
             if (BGInitialCount == 0)
             {
@@ -278,7 +298,7 @@ public class Player : MonoBehaviour
                 bottomObstaclePos.y = -1.423f;
                 if (maps[randomBG] == PitMap)
                 {
-                    GameObject obstacle = Instantiate(TopObstacle, topObstaclePos, Quaternion.identity, ObstacleParent);
+                    //GameObject obstacle = Instantiate(TopObstacle, topObstaclePos, Quaternion.identity, ObstacleParent);
                 }
                 else if(maps[randomBG] == LavaMap){}
                 else

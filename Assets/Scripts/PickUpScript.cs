@@ -74,11 +74,11 @@ public class PickUpScript : MonoBehaviour
 
         HidePickUp();
 
-        yield return new WaitForSecondsRealtime(3f); 
-
         Player playerScript = player.GetComponent<Player>();
 
         playerScript.totalPoints += 2500;
+
+        yield return new WaitForSecondsRealtime(3f); 
 
         Destroy(PickUpParent);
     }
@@ -89,7 +89,7 @@ public class PickUpScript : MonoBehaviour
 
         if(health < 100)
         {
-            player.GetComponent<Player>().playerHealth = 100;
+            player.GetComponent<Player>().playerHealth += 50;
         }
         Destroy(PickUpParent);
     }
@@ -119,7 +119,7 @@ public class PickUpScript : MonoBehaviour
         
         Player playerScript = player.GetComponent<Player>();
 
-        playerScript.ammo += 5;
+        playerScript.ammo += 10;
 
         yield return new WaitForSecondsRealtime(3f); 
         Destroy(PickUpParent);
