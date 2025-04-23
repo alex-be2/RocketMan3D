@@ -45,7 +45,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 24300002, guid: 945c2bcafa27e3644b3f0748620c98af, type: 2}
   m_audioClip: {fileID: 8300000, guid: 5d1befe87f98d58408b63d7255c6d78b, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.628
+  m_Volume: 0.025
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -141,6 +141,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2df3192c764b205468a77e1f1753e202, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
   lowpassMixer: {fileID: 24300002, guid: 1fecc39c9fe0f7549a623dff339e2234, type: 2}
   normalMixer: {fileID: 24300002, guid: 945c2bcafa27e3644b3f0748620c98af, type: 2}

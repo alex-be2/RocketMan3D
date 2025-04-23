@@ -4246,6 +4246,7 @@ MonoBehaviour:
   HallwayMap: {fileID: 5104838056991043169, guid: b35b477684a056847925e5c52b401ae8, type: 3}
   PitMap: {fileID: 3066268286682472978, guid: 6ca55065b636d964694520755cbd2dea, type: 3}
   LavaMap: {fileID: 3066268286682472978, guid: 7825deabcb8fa5643a35e63a0a386c8c, type: 3}
+  BasicMapCage: {fileID: 3066268286682472978, guid: 3ec2ddc2f0eddcf4a9ca210d55795d42, type: 3}
   ObstacleParent: {fileID: 612211842}
   BottomObstacle: {fileID: 6988932533409407069, guid: 773f0a001cac1c143bc98a1e5897565f, type: 3}
   TopObstacle: {fileID: 6988932533409407069, guid: ebb29df80a400c64eb1f268c9ddb595c, type: 3}
@@ -4266,6 +4267,9 @@ MonoBehaviour:
   speedPoints: 0
   AmmoText: {fileID: 732049291}
   ammo: 0
+  lowpassMixer: {fileID: 24300002, guid: 1fecc39c9fe0f7549a623dff339e2234, type: 2}
+  normalMixer: {fileID: 24300002, guid: 945c2bcafa27e3644b3f0748620c98af, type: 2}
+  Soundtrack: {fileID: 0}
   speedCap: 10
 --- !u!65 &1961497242
 BoxCollider:

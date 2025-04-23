@@ -8,6 +8,8 @@ using Unity.VisualScripting;
 using UnityEditor.Experimental.GraphView;
 using UnityEditor.SceneManagement;
 using UnityEngine;
+using UnityEngine.Audio;
+
 //using UnityEngine.UIElements;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -42,6 +44,7 @@ public class Player : MonoBehaviour
     [SerializeField] private GameObject HallwayMap;
     [SerializeField] private GameObject PitMap;
     [SerializeField] private GameObject LavaMap;
+    [SerializeField] private GameObject BasicMapCage;
     
     //Obstacles Spikes Towers
     [SerializeField] private Transform ObstacleParent;
@@ -60,6 +63,7 @@ public class Player : MonoBehaviour
     [SerializeField] private Image HealthDisplay;
     [SerializeField] private GameObject DeadCanvas;
     public float playerHealth;
+    private bool isDead;
 
     //Pick Ups
     [SerializeField] private GameObject PickUpOneGameObject;
@@ -75,8 +79,15 @@ public class Player : MonoBehaviour
     [SerializeField] private GameObject AmmoText;
     public int ammo;
 
+    //soundtrack
+    [SerializeField] private AudioMixerGroup lowpassMixer;
+    [SerializeField] private AudioMixerGroup normalMixer;
+    [SerializeField] private GameObject Soundtrack;
+    AudioSource soundtrackAudioSource; 
 
-    GameObject[] maps = new GameObject[3];
+
+
+    GameObject[] maps = new GameObject[4];
     GameObject[] obstacles = new GameObject[2];
 
     ///
@@ -91,6 +102,7 @@ public class Player : MonoBehaviour
         maps[0] = BasicMap;
         maps[1] = HallwayMap;
         maps[2] = LavaMap;
+        maps[3] = BasicMapCage;
         //maps[2] = PitMap;
 
         obstacles[0] = BottomObstacle;
@@ -104,18 +116,34 @@ public class Player : MonoBehaviour
 
         Time.timeScale = 1.0f;
 
+        Soundtrack = GameObject.Find("Soundtrack");
+
+        soundtrackAudioSource = Soundtrack.GetComponent<AudioSource>();
+        soundtrackAudioSource.outputAudioMixerGroup = normalMixer;
     }
 
     void Update()
     {
         KeyPause();
+        UpdateSoundtrack();
+        ObjectInstantiation();
         if(isPaused){return;}
         Movement();
-        ObjectInstantiation();
         RocketLauncher();
         HealthManagement();
         CalculatePoints();
         AmmoText.GetComponent<TextMeshProUGUI>().text = Convert.ToString(ammo);
+    }
+
+    void UpdateSoundtrack()
+    {
+        if (Soundtrack != null)
+        {
+            if (!isPaused && !isDead)
+            {
+                soundtrackAudioSource.outputAudioMixerGroup = normalMixer;
+            }
+        }
     }
 
     Vector3 lastPositionPoints = new Vector3();
@@ -141,26 +169,44 @@ public class Player : MonoBehaviour
         HealthDisplay.fillAmount = Mathf.Lerp(HealthDisplay.fillAmount, playerHealth / 100 , 0.1f);
         if (playerHealth <= 0)
         {
+            isDead = true;
             DeadCanvas.SetActive(true);
+            if (Soundtrack != null)
+            {
+                soundtrackAudioSource.outputAudioMixerGroup = lowpassMixer;
+            }
+
 
             Time.timeScale = Mathf.Lerp(Time.timeScale, 0, 0.1f);
             // Time.timeScale = 0;
         }
+        else
+        {
+            isDead = false;
+        }
+
+        //playerMat.color = Color.Lerp(playerMat.color, Color.red, 1/playerHealth * Time.deltaTime * 10);
+
     }
 
     void KeyPause()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
+            Debug.Log("escape");
             Pause();
         }
     }
     public void Pause()
     {
+        if (Soundtrack != null)
+        {
+            soundtrackAudioSource.outputAudioMixerGroup = lowpassMixer;
+        }
+
         isPaused = !isPaused;
         PauseCanvas.SetActive(isPaused);
         Time.timeScale = isPaused ? 0.05f : 1.0f;
-
     }
 
     Vector3 lastPosition = new Vector3();
@@ -201,7 +247,7 @@ public class Player : MonoBehaviour
 
             positionCountBG += 50;
 
-            int randomBG = UnityEngine.Random.Range(0,3);
+            int randomBG = UnityEngine.Random.Range(0,4);
 
             if (BGInitialCount == 0)
             {

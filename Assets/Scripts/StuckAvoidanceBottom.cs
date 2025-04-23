@@ -18,7 +18,9 @@ public class StuckAvoidanceBottom : MonoBehaviour
         {
             Player playerScript = player.GetComponent<Player>();
 
-            playerScript.transform.position += transform.up * Time.deltaTime * 300;
+            //playerScript.transform.position += transform.up * Time.deltaTime * 300;
+            
+            playerScript.playerHealth -= 100f;
 
         }
 
