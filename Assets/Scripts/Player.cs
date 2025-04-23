@@ -100,7 +100,7 @@ public class Player : MonoBehaviour
 
         totalPoints = 0;
 
-        ammo = 10;
+        ammo = 100;
 
         Time.timeScale = 1.0f;
 
