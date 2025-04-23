@@ -4,70 +4,89 @@ using System.Threading;
 using UnityEngine;
 
 public class DestructableTower : MonoBehaviour
-{
-    // [SerializeField] private GameObject player;
-    // [SerializeField] private GameObject rocket;
-    [SerializeField] private Material DefaultRed;
-    [SerializeField] private Material HitGreen;
-    
-    //cubes
-    [SerializeField] private GameObject cube01;
-    [SerializeField] private GameObject cube02;
-    [SerializeField] private GameObject cube03;
-    [SerializeField] private GameObject cube04;
-    [SerializeField] private GameObject cube05;
-    [SerializeField] private GameObject cube06;
+{    
+    // //cubes
+    // [SerializeField] private GameObject cube01;
+    // [SerializeField] private GameObject cube02;
+    // [SerializeField] private GameObject cube03;
+    // [SerializeField] private GameObject cube04;
+    // [SerializeField] private GameObject cube05;
+    // [SerializeField] private GameObject cube06;
 
-    List<GameObject> cubes = new List<GameObject>();
+    //List<GameObject> cubes = new List<GameObject>();
     //private float timer = 0.5f;
+    [SerializeField] private GameObject player;
+    [SerializeField] private GameObject SlowMoText;
+    [SerializeField] private GameObject SlowMoText01;
+    [SerializeField] private GameObject SlowMoText02;
+    [SerializeField] private GameObject SlowMoText03;
+    [SerializeField] private GameObject SlowMoText04;
+    [SerializeField] private GameObject SlowMoText05;
+
+    GameObject[] prompts = new GameObject[6];
+
+    int randomPrompt = 0;
 
 
     void Start()
     {
+        player = GameObject.Find("Player");
+
         // player = GameObject.Find("Player");
         // rocket = GameObject.Find("Rocket");
 
-        cubes.Add(cube01);
-        cubes.Add(cube02);
-        cubes.Add(cube03);
-        cubes.Add(cube04);
-        cubes.Add(cube05);
-        cubes.Add(cube06);
+        prompts[0] = SlowMoText;
+        prompts[1] = SlowMoText01;
+        prompts[2] = SlowMoText02;
+        prompts[3] = SlowMoText03;
+        prompts[4] = SlowMoText04;
+        prompts[5] = SlowMoText05;
+
+        randomPrompt = UnityEngine.Random.Range(0,6);
+
+
 
     }
 
     void Update()
     {
-        GameObject player = GameObject.Find("Player");
-        Vector3 currentPos = transform.position;
-        if (player.transform.position.x - currentPos.x > 50)
-        {
-            Destroy(gameObject);
-        }
+        //GameObject player = GameObject.Find("Player");
+        // Vector3 currentPos = transform.position;
+        // if (player.transform.position.x - currentPos.x > 50)
+        // {
+        //     Destroy(gameObject);
+        // }
 
 
     }
 
-    private void OnTriggerStay(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         GameObject player = GameObject.Find("Player");
 
         Collider playerCollider = player.GetComponent<Collider>();
 
-        if (playerCollider == other && Time.timeScale>0.9f)
+        if (playerCollider == other)
         {
-            // float timer = 1f;
+            Player playerScript = player.GetComponent<Player>();
 
-            // if (timer > 0)
-            // {
-            //     timer -= Time.deltaTime;
-            //     Time.timeScale = Mathf.Lerp(Time.timeScale, 0.6f,0.8f);
-            // }
-            // else
-            // {
-            //     Time.timeScale = Mathf.Lerp(Time.timeScale, 1.0f,0.8f);
-            // }
+            if (playerScript.speedPoints*10 > 40)
+            {
+                StartCoroutine(SlowMotion());
+            }
         }
 
     }
+
+    IEnumerator SlowMotion()
+    {
+        prompts[randomPrompt].SetActive(true);
+        Time.timeScale = Mathf.Lerp(Time.timeScale, 0.1f,0.9f);
+        yield return new WaitForSecondsRealtime(1f); 
+        Time.timeScale = Mathf.Lerp(Time.timeScale, 1.0f,0.9f);
+
+        Destroy(gameObject);
+    }
+
+
 }

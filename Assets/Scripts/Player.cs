@@ -41,7 +41,9 @@ public class Player : MonoBehaviour
     [SerializeField] private GameObject BasicMapNotBaked;
     [SerializeField] private GameObject HallwayMap;
     [SerializeField] private GameObject PitMap;
-    //Obstacles Spikes Tower
+    [SerializeField] private GameObject LavaMap;
+    
+    //Obstacles Spikes Towers
     [SerializeField] private Transform ObstacleParent;
     [SerializeField] private GameObject BottomObstacle;
     [SerializeField] private GameObject TopObstacle;
@@ -49,6 +51,7 @@ public class Player : MonoBehaviour
     [SerializeField] private GameObject Spikes;
     [SerializeField] private Transform TowerParent;
     [SerializeField] private GameObject Tower;
+    [SerializeField] private GameObject PlankTower;
     //Pause Menu
     [SerializeField] private GameObject PauseCanvas;
     private bool isPaused;
@@ -65,9 +68,12 @@ public class Player : MonoBehaviour
 
     //Points
     [SerializeField] private GameObject PointsText;
-
-    [SerializeField] private GameObject BluePickUp;
     public int totalPoints;
+    public float speedPoints;
+
+    //Ammo
+    [SerializeField] private GameObject AmmoText;
+    public int ammo;
 
 
     GameObject[] maps = new GameObject[3];
@@ -84,6 +90,7 @@ public class Player : MonoBehaviour
 
         maps[0] = BasicMap;
         maps[1] = HallwayMap;
+        maps[2] = LavaMap;
         //maps[2] = PitMap;
 
         obstacles[0] = BottomObstacle;
@@ -93,9 +100,10 @@ public class Player : MonoBehaviour
 
         totalPoints = 0;
 
+        ammo = 10;
+
         Time.timeScale = 1.0f;
 
-        //Instantiate(spotLightBG, transform.position, Quaternion.identity);
     }
 
     void Update()
@@ -107,22 +115,18 @@ public class Player : MonoBehaviour
         RocketLauncher();
         HealthManagement();
         CalculatePoints();
+        AmmoText.GetComponent<TextMeshProUGUI>().text = Convert.ToString(ammo);
     }
 
     Vector3 lastPositionPoints = new Vector3();
     void CalculatePoints()
     {
-        //if (BluePickUp.)
-
-        float speedPoints = (Vector3.Distance(lastPositionPoints, transform.position) * 100f)/10;
+        speedPoints = (Vector3.Distance(lastPositionPoints, transform.position) * 100f)/10;
 
         lastPositionPoints = transform.position;
 
-        // Vector3 initialPos = new Vector3(0,0,0);
-        // float distanceFromStart = Vector3.Distance(initialPos, transform.position);
-
         totalPoints += Convert.ToInt32(speedPoints);
-
+        
         PointsText.GetComponent<TextMeshProUGUI>().text = Convert.ToString(totalPoints);
 
     } 
@@ -187,18 +191,6 @@ public class Player : MonoBehaviour
     float BGInitialCount = 0;
     void ObjectInstantiation()
     {
-
-        // if (playerPos.x >= positionCount)
-        // {
-        //     Vector3 spotlightPos = new Vector3(positionCount + 50, 8f, 4.3f);
-
-        //     positionCount += 50;
-
-        //     GameObject spotLight = Instantiate(spotLightBG, spotlightPos, Quaternion.Euler(57, 0, 0), spotLightParent);
-        // }
-
-
-
         //spawning map
 
         Vector3 playerPos = transform.position;
@@ -209,7 +201,7 @@ public class Player : MonoBehaviour
 
             positionCountBG += 50;
 
-            int randomBG = UnityEngine.Random.Range(0,2);
+            int randomBG = UnityEngine.Random.Range(0,3);
 
             if (BGInitialCount == 0)
             {
@@ -238,10 +230,11 @@ public class Player : MonoBehaviour
                 Vector3 bottomObstaclePos = backgroundPos;
 
                 bottomObstaclePos.y = -1.423f;
-                if (randomBG == 1)
+                if (maps[randomBG] == PitMap)
                 {
                     GameObject obstacle = Instantiate(TopObstacle, topObstaclePos, Quaternion.identity, ObstacleParent);
                 }
+                else if(maps[randomBG] == LavaMap){}
                 else
                 {
                     int ObstacleSelect = UnityEngine.Random.Range(0,2);
@@ -270,7 +263,7 @@ public class Player : MonoBehaviour
                 bottomSpikesPos.y = -3.15f;
                 bottomSpikesPos.z = 0.18f;
 
-                if (randomBG == 1)
+                if (maps[randomBG] == PitMap || maps[randomBG] == LavaMap)
                 {
                     GameObject obstacle = Instantiate(Spikes, topSpikesPos, Quaternion.identity, SpikesParent);
                 }
@@ -291,14 +284,33 @@ public class Player : MonoBehaviour
             }
             else if (chanceOfObstacle == 2)
             {
-                //Debug.Log("tower");
+                //spawing destructable towers
 
-                Vector3 TowerPos = backgroundPos;
-                TowerPos.y = -2.089f;
+                int chanceOfTower = UnityEngine.Random.Range(0,2);
 
-                if (randomBG != 1)
+                if (chanceOfTower == 1)
                 {
-                    GameObject tower = Instantiate(Tower, TowerPos, Quaternion.identity, TowerParent);
+                    Vector3 TowerPos = backgroundPos;
+                    TowerPos.y = -2.089f;
+                    TowerPos.z += 0.3f;
+
+                    if (maps[randomBG] == PitMap || maps[randomBG] == LavaMap){}
+                    else
+                    {
+                        GameObject tower = Instantiate(Tower, TowerPos, Quaternion.identity, TowerParent);
+                    }
+                }
+                else
+                {
+                    Vector3 PlankTowerPos = backgroundPos;
+                    PlankTowerPos.y = -1.1f;
+                    PlankTowerPos.z += 0.3f;
+
+                    if (maps[randomBG] == PitMap || maps[randomBG] == LavaMap){}
+                    else
+                    {
+                        GameObject tower = Instantiate(PlankTower, PlankTowerPos, Quaternion.identity, TowerParent);
+                    }
                 }
 
             }
@@ -335,13 +347,19 @@ public class Player : MonoBehaviour
             //Firing the launcher
             if (Input.GetMouseButtonDown(0))
             {
-                rocketLauncherRotation = rocketLauncher.rotation;
-                GameObject rocket = Instantiate(RocketPrefab, rocketLauncher.position + rocketLauncher.right*1.4f, rocketLauncherRotation, rockets);
+                //Debug.Log(ammo);
+                if (ammo > 0)
+                {
+                    ammo -= 1;
+                    AmmoText.GetComponent<TextMeshProUGUI>().text = Convert.ToString(ammo);
+                    rocketLauncherRotation = rocketLauncher.rotation;
+                    GameObject rocket = Instantiate(RocketPrefab, rocketLauncher.position + rocketLauncher.right*1.4f, rocketLauncherRotation, rockets);
 
-                Rigidbody rb = rocket.GetComponent<Rigidbody>();
-                float speed = Vector3.Distance(lastPositionRocket, transform.position) * 100f;
-                rb.AddForce(rocket.transform.right * (initialRocketPropulsion+speed*0.4f) );
-                lastPositionRocket = transform.position;
+                    Rigidbody rb = rocket.GetComponent<Rigidbody>();
+                    float speed = Vector3.Distance(lastPositionRocket, transform.position) * 100f;
+                    rb.AddForce(rocket.transform.right * (initialRocketPropulsion+speed*0.4f) );
+                    lastPositionRocket = transform.position;
+                }
             }
         }
     }

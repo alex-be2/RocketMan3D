@@ -18,6 +18,7 @@ public class PickUpScript : MonoBehaviour
     [SerializeField] private GameObject SlowMoText;
 
     [SerializeField] private GameObject ExtraPoints;
+    [SerializeField] private GameObject ExtraAmmo;
 
     Material[] mats = new Material[4];
     int randomMat;
@@ -38,7 +39,7 @@ public class PickUpScript : MonoBehaviour
 
     }
 
-    void OnTriggerStay(Collider other)
+    void OnTriggerEnter(Collider other)
     {
         // GameObject player = GameObject.Find("Player");
         Collider playerCollider = player.GetComponent<Collider>();
@@ -60,8 +61,8 @@ public class PickUpScript : MonoBehaviour
                 StartCoroutine(BlueSlowMotion());     
                 break;
                 case 3:
-                //yellow is slow enemy
-                YellowSlowEnemy();
+                //yellow is increase ammo
+                StartCoroutine(YellowInceaseAmmo());
                 break;
             }
         }       
@@ -88,7 +89,7 @@ public class PickUpScript : MonoBehaviour
 
         if(health < 100)
         {
-            player.GetComponent<Player>().playerHealth += 10;
+            player.GetComponent<Player>().playerHealth = 100;
         }
         Destroy(PickUpParent);
     }
@@ -102,6 +103,7 @@ public class PickUpScript : MonoBehaviour
         Time.timeScale = Mathf.Lerp(Time.timeScale, 0.1f,0.9f);
         yield return new WaitForSecondsRealtime(1f); 
         Time.timeScale = Mathf.Lerp(Time.timeScale, 1.0f,0.9f);
+        Debug.Log("out");
 
         Player playerScript = player.GetComponent<Player>();
 
@@ -109,9 +111,18 @@ public class PickUpScript : MonoBehaviour
 
         Destroy(PickUpParent);
     }
-    void YellowSlowEnemy()
+    IEnumerator YellowInceaseAmmo()
     {
+        ExtraAmmo.SetActive(true);
+
+        HidePickUp();
         
+        Player playerScript = player.GetComponent<Player>();
+
+        playerScript.ammo += 5;
+
+        yield return new WaitForSecondsRealtime(3f); 
+        Destroy(PickUpParent);
     }
 
     void HidePickUp()
