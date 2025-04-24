@@ -5,24 +5,34 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.Audio;
+using TMPro;
+using System;
+
 
 public class Menu : MonoBehaviour
 {
     [SerializeField] private Button firstSelectedButton;
     [SerializeField] private GameObject Soundtrack;
     [SerializeField] private AudioMixerGroup normalMixer;
+    [SerializeField] private GameObject HighScoreText;
 
     void Start()
     {
         firstSelectedButton.Select();
-
-        //GameObject repeatSoundtrack = GameObject.Find("Soundtrack");
 
         AudioSource soundtrackAudioSource = Soundtrack.GetComponent<AudioSource>();
 
         soundtrackAudioSource.outputAudioMixerGroup = normalMixer;
       
         DontDestroyOnLoad(Soundtrack);
+
+        int HighScore = PlayerPrefs.GetInt("HighScore",0);
+
+        if (HighScore != 0)
+        {
+            string HighScoreTextValue = $"{HighScore} pts"; 
+            HighScoreText.GetComponent<TextMeshProUGUI>().text = Convert.ToString(HighScoreTextValue);
+        }
         
     }
     public void ChangeScene()

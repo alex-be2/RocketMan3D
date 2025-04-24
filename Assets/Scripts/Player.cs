@@ -83,7 +83,12 @@ public class Player : MonoBehaviour
     [SerializeField] private AudioMixerGroup lowpassMixer;
     [SerializeField] private AudioMixerGroup normalMixer;
     [SerializeField] private GameObject Soundtrack;
-    AudioSource soundtrackAudioSource; 
+    AudioSource soundtrackAudioSource;
+
+    //SaveData
+    public int HighScore;
+
+    [SerializeField] private GameObject NewHighScoreText;
 
 
 
@@ -120,6 +125,13 @@ public class Player : MonoBehaviour
 
         soundtrackAudioSource = Soundtrack.GetComponent<AudioSource>();
         soundtrackAudioSource.outputAudioMixerGroup = normalMixer;
+
+    }
+
+    void Awake()
+    {
+        HighScore = PlayerPrefs.GetInt("HighScore", 0);
+        //HighScore = 0;
     }
 
     void Update()
@@ -135,6 +147,8 @@ public class Player : MonoBehaviour
         StartCoroutine(SlideBackAvoidance());
         // SlideBackAvoidance();
         AmmoText.GetComponent<TextMeshProUGUI>().text = Convert.ToString(ammo);
+
+
     }
 
     void UpdateSoundtrack()
@@ -159,6 +173,15 @@ public class Player : MonoBehaviour
         
         PointsText.GetComponent<TextMeshProUGUI>().text = Convert.ToString(totalPoints);
 
+        if (HighScore < totalPoints)
+        {
+            // Debug.Log($"HighScore:{HighScore}");
+            // Debug.Log($"TotalScore:{totalPoints}");
+            Debug.Log("Saving...");
+            PlayerPrefs.SetInt("HighScore", totalPoints);
+            PlayerPrefs.Save();
+            HighScore = totalPoints;
+        }
     } 
 
     public void ReloadScene()
@@ -178,7 +201,7 @@ public class Player : MonoBehaviour
 
         if (movementDirection.x < 0)
         {
-            Debug.Log("reverse");
+            //Debug.Log("reverse");
             yield return new WaitForSecondsRealtime(0.1f); 
             speedCap = 9f;
         }
@@ -191,6 +214,11 @@ public class Player : MonoBehaviour
         {
             isDead = true;
             DeadCanvas.SetActive(true);
+            NewHighScoreText.SetActive(false);
+            if (totalPoints == HighScore)
+            {
+                NewHighScoreText.SetActive(true);
+            }
             if (Soundtrack != null)
             {
                 soundtrackAudioSource.outputAudioMixerGroup = lowpassMixer;
@@ -198,7 +226,6 @@ public class Player : MonoBehaviour
 
 
             Time.timeScale = Mathf.Lerp(Time.timeScale, 0, 0.1f);
-            // Time.timeScale = 0;
         }
         else
         {
