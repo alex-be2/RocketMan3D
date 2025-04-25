@@ -88,12 +88,18 @@ public class Player : MonoBehaviour
     [SerializeField] private GameObject Soundtrack;
     AudioSource soundtrackAudioSource;
 
-    //SaveData
+    //Savedata for points
     public int HighScore;
 
     [SerializeField] private GameObject NewHighScoreText;
     [SerializeField] private GameObject PointBalanceText;
 
+    //launcherColours
+    [SerializeField] private Material Red;
+    [SerializeField] private Material Blue;
+    [SerializeField] private Material Special;
+    [SerializeField] private GameObject launcher;
+    string launcherColour;
 
 
     GameObject[] maps = new GameObject[5];
@@ -129,6 +135,37 @@ public class Player : MonoBehaviour
 
         soundtrackAudioSource = Soundtrack.GetComponent<AudioSource>();
         soundtrackAudioSource.outputAudioMixerGroup = normalMixer;
+
+        launcherColour = PlayerPrefs.GetString("launcherColour","black");
+
+        if (launcherColour == "black")
+        {
+
+        }
+        else if (launcherColour == "red")
+        {
+            SkinnedMeshRenderer launcherRenderer = launcher.GetComponent<SkinnedMeshRenderer>();
+            Material[] mats = launcherRenderer.materials;
+
+            mats[0] = Red;
+            launcherRenderer.materials = mats;
+        }
+        else if (launcherColour == "blue")
+        {
+            SkinnedMeshRenderer launcherRenderer = launcher.GetComponent<SkinnedMeshRenderer>();
+            Material[] mats = launcherRenderer.materials;
+
+            mats[0] = Blue;
+            launcherRenderer.materials = mats;
+        }
+        else if (launcherColour == "special")
+        {
+            SkinnedMeshRenderer launcherRenderer = launcher.GetComponent<SkinnedMeshRenderer>();
+            Material[] mats = launcherRenderer.materials;
+
+            mats[0] = Special;
+            launcherRenderer.materials = mats;
+        }
 
     }
 
