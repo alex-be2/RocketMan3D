@@ -15,6 +15,9 @@ public class Menu : MonoBehaviour
     [SerializeField] private GameObject Soundtrack;
     [SerializeField] private AudioMixerGroup normalMixer;
     [SerializeField] private GameObject HighScoreText;
+    [SerializeField] private GameObject MainMenuObjects;
+    [SerializeField] private GameObject ShopMenuObjects;
+
 
     void Start()
     {
@@ -38,6 +41,13 @@ public class Menu : MonoBehaviour
     public void ChangeScene()
     {
         SceneManager.LoadScene("MainGame");
+    }
+
+    public void Shop()
+    {
+        MainMenuObjects.SetActive(false);
+        ShopMenuObjects.SetActive(true);
+
     }
 
     public void Quit()

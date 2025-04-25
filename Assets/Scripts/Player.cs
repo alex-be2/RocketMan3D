@@ -74,6 +74,9 @@ public class Player : MonoBehaviour
     [SerializeField] private GameObject PointsText;
     public int totalPoints;
     public float speedPoints;
+    public int pointBalance;
+
+    public bool pointBalanceUpdated;
 
     //Ammo
     [SerializeField] private GameObject AmmoText;
@@ -89,6 +92,7 @@ public class Player : MonoBehaviour
     public int HighScore;
 
     [SerializeField] private GameObject NewHighScoreText;
+    [SerializeField] private GameObject PointBalanceText;
 
 
 
@@ -131,7 +135,7 @@ public class Player : MonoBehaviour
     void Awake()
     {
         HighScore = PlayerPrefs.GetInt("HighScore", 0);
-        //HighScore = 0;
+        pointBalance = PlayerPrefs.GetInt("PointBalance", 0);
     }
 
     void Update()
@@ -212,6 +216,13 @@ public class Player : MonoBehaviour
         HealthDisplay.fillAmount = Mathf.Lerp(HealthDisplay.fillAmount, playerHealth / 100 , 0.1f);
         if (playerHealth <= 0)
         {
+            int pointBalanceTotal = pointBalance + totalPoints;
+
+            PointBalanceText.GetComponent<TextMeshProUGUI>().text = Convert.ToString(pointBalanceTotal);
+
+            //PlayerPrefs.SetInt("PointBalance", pointBalanceTotal);
+            PlayerPrefs.SetInt("PointBalance", pointBalanceTotal);
+            PlayerPrefs.Save();
             isDead = true;
             DeadCanvas.SetActive(true);
             NewHighScoreText.SetActive(false);

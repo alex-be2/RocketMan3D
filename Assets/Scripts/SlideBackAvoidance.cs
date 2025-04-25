@@ -1,10 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
-public class ObstacleBoostDetector : MonoBehaviour
+public class SlideBackAvoidance : MonoBehaviour
 {
-
     [SerializeField] private GameObject CollisionDetector;
     private void OnTriggerStay(Collider other)
     {
@@ -14,9 +14,9 @@ public class ObstacleBoostDetector : MonoBehaviour
 
         if (other == playerCollider && CollisionDetector.GetComponent<ObstacleDetector>().detectedPlayer == true)
         {
-            Player playerScript = player.GetComponent<Player>();
+            BoxCollider boxColliderDetector = gameObject.GetComponent<BoxCollider>();
 
-            playerScript.speedCap = 40f;
+            boxColliderDetector.isTrigger = false;
 
         }
 
