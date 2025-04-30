@@ -1,0 +1,41 @@
+VIDEOS:
+
+Health bar: https://www.youtube.com/watch?v=0tDPxNB2JNs 
+
+Particle system video: https://www.youtube.com/watch?v=cvQiQglPI18&t=28s 
+
+Save game video: https://www.youtube.com/watch?v=y7RPVvwjrsA 
+
+
+
+FORUM:
+
+IEnumerator: https://discussions.unity.com/t/how-to-delay-without-using-coroutine/646537 
+
+
+
+ASSETS:
+
+Explosion (CC0): https://opengameart.org/content/explosion-particles-sprite-atlas 
+
+Launcher (CC0): https://opengameart.org/content/energy-rifle 
+
+Sfx (rocket)(CC0): https://pixabay.com/sound-effects/search/rocket%20launcher/ 
+
+Plastic (CC0): https://ambientcg.com/view?id=Plastic005 
+
+Metal Texture(small)(CC0): https://opengameart.org/content/metal-texture 
+
+Lava texture(CC0): https://opengameart.org/content/2-seamless-lava-tiles-lava-3png 
+
+Font(CC0): https://opengameart.org/content/boxy-bold-truetype-font 
+
+Wooden Box(CC0): https://opengameart.org/content/crates-crate13png 
+
+Plank(CC0): https://opengameart.org/content/bamboo-wood-seamless-1k 
+
+Soundtrack(CC0): https://opengameart.org/content/warp-drive 
+
+Special gun skin(CC0): https://opengameart.org/content/alien-floor 
+
+Player glasses: https://opengameart.org/content/glasses-1 
