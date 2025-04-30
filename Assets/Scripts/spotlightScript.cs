@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class spotlightScript : MonoBehaviour
 {
-    //[SerializeField] private GameObject player;
     void Update()
     {
         GameObject player = GameObject.Find("Player");
@@ -13,7 +12,5 @@ public class spotlightScript : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        //Debug.Log($"PLAYER: {player.transform.position.x}");
-        //Debug.Log($"SUM: {player.transform.position.x - currentPos.x}");
     }
 }

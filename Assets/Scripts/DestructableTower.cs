@@ -5,16 +5,6 @@ using UnityEngine;
 
 public class DestructableTower : MonoBehaviour
 {    
-    // //cubes
-    // [SerializeField] private GameObject cube01;
-    // [SerializeField] private GameObject cube02;
-    // [SerializeField] private GameObject cube03;
-    // [SerializeField] private GameObject cube04;
-    // [SerializeField] private GameObject cube05;
-    // [SerializeField] private GameObject cube06;
-
-    //List<GameObject> cubes = new List<GameObject>();
-    //private float timer = 0.5f;
     [SerializeField] private GameObject player;
     [SerializeField] private GameObject SlowMoText;
     [SerializeField] private GameObject SlowMoText01;
@@ -32,9 +22,6 @@ public class DestructableTower : MonoBehaviour
     {
         player = GameObject.Find("Player");
 
-        // player = GameObject.Find("Player");
-        // rocket = GameObject.Find("Rocket");
-
         prompts[0] = SlowMoText;
         prompts[1] = SlowMoText01;
         prompts[2] = SlowMoText02;
@@ -50,14 +37,6 @@ public class DestructableTower : MonoBehaviour
 
     void Update()
     {
-        //GameObject player = GameObject.Find("Player");
-        // Vector3 currentPos = transform.position;
-        // if (player.transform.position.x - currentPos.x > 50)
-        // {
-        //     Destroy(gameObject);
-        // }
-
-
     }
 
     private void OnTriggerEnter(Collider other)

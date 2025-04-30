@@ -4,13 +4,11 @@ using UnityEngine;
 
 public class ShopLauncher : MonoBehaviour
 {
-    //[SerializeField] private GameObject LauncherColour;
     [SerializeField] private Material Red;
     [SerializeField] private Material Blue;
     [SerializeField] private Material Special;
     [SerializeField] private GameObject launcher;
 
-    //Material launcherMaterial;
 
     void Start()
     {

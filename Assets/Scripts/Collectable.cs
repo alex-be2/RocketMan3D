@@ -13,7 +13,6 @@ public class Collectable : MonoBehaviour
     void Start()
     {
         InvokeRepeating ("ChangeBlue", 0f, 10f);
-        //InvokeRepeating("ChangeMag", 5f, 5f);
         colours.Add(Color.magenta);
         colours.Add(Color.cyan);
     }
@@ -32,7 +31,6 @@ public class Collectable : MonoBehaviour
     private void OnTriggerStay(Collider other)
     {
         playerMat.color = Color.Lerp(playerMat.color, Color.green, 5f * Time.deltaTime);
-        //green.color = Color.white;
     }
 
     private void OnTriggerEnter(Collider other)

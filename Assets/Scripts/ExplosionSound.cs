@@ -5,7 +5,6 @@ using UnityEngine.Audio;
 
 public class ExplosionSound : MonoBehaviour
 {
-    //[SerializeField] private GameObject player;
     [SerializeField] private AudioMixerGroup lowpassMixer;
     [SerializeField] private AudioMixerGroup normalMixer;
 

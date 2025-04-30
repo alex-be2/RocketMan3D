@@ -29,7 +29,6 @@ public class ShopMenuManager : MonoBehaviour
     int buyButton01Selected;
     int buyButton02Selected;
 
-    //string selectedLauncherColour;
 
     int totalBalance;
     void Start()

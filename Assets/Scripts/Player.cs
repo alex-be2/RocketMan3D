@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-//using System.Numerics;
 using System.Runtime.CompilerServices;
 using TMPro;
 using Unity.VisualScripting;
@@ -10,7 +9,6 @@ using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.Audio;
 
-//using UnityEngine.UIElements;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.Video;
@@ -108,6 +106,8 @@ public class Player : MonoBehaviour
     ///
     ///
     ///
+    /// 
+    
     private Rigidbody rb;
     void Start()
     {
@@ -127,7 +127,7 @@ public class Player : MonoBehaviour
 
         totalPoints = 0;
 
-        ammo = 100;
+        ammo = 20;
 
         Time.timeScale = 1.0f;
 
@@ -135,6 +135,8 @@ public class Player : MonoBehaviour
 
         soundtrackAudioSource = Soundtrack.GetComponent<AudioSource>();
         soundtrackAudioSource.outputAudioMixerGroup = normalMixer;
+
+        //get launcher colour
 
         launcherColour = PlayerPrefs.GetString("launcherColour","black");
 
@@ -171,6 +173,7 @@ public class Player : MonoBehaviour
 
     void Awake()
     {
+        //get player stats
         HighScore = PlayerPrefs.GetInt("HighScore", 0);
         pointBalance = PlayerPrefs.GetInt("PointBalance", 0);
     }
@@ -186,10 +189,7 @@ public class Player : MonoBehaviour
         HealthManagement();
         CalculatePoints();
         StartCoroutine(SlideBackAvoidance());
-        // SlideBackAvoidance();
         AmmoText.GetComponent<TextMeshProUGUI>().text = Convert.ToString(ammo);
-
-
     }
 
     void UpdateSoundtrack()
@@ -235,8 +235,6 @@ public class Player : MonoBehaviour
 
         lastPositionSlideBack = transform.position;
 
-        //Debug.Log(movementDirection);
-
         if (movementDirection.x < 0)
         {
             //Debug.Log("reverse");
@@ -248,13 +246,13 @@ public class Player : MonoBehaviour
     void HealthManagement()
     {
         HealthDisplay.fillAmount = Mathf.Lerp(HealthDisplay.fillAmount, playerHealth / 100 , 0.1f);
+        Debug.Log(HealthDisplay.fillAmount);
         if (playerHealth <= 0)
         {
             int pointBalanceTotal = pointBalance + totalPoints;
 
             PointBalanceText.GetComponent<TextMeshProUGUI>().text = Convert.ToString(pointBalanceTotal);
 
-            //PlayerPrefs.SetInt("PointBalance", pointBalanceTotal);
             PlayerPrefs.SetInt("PointBalance", pointBalanceTotal);
             PlayerPrefs.Save();
             isDead = true;
@@ -276,9 +274,6 @@ public class Player : MonoBehaviour
         {
             isDead = false;
         }
-
-        //playerMat.color = Color.Lerp(playerMat.color, Color.red, 1/playerHealth * Time.deltaTime * 10);
-
     }
 
     void KeyPause()
@@ -306,7 +301,6 @@ public class Player : MonoBehaviour
     float speedIncrement = 3f;
     void Movement()
     {
-        //float timer = 0f;
         float speed = Vector3.Distance(lastPosition, transform.position) * 100f;
 
         lastPosition = transform.position;
@@ -320,8 +314,6 @@ public class Player : MonoBehaviour
         {
             rb.velocity += transform.right * Time.deltaTime * movementSpeed;
         }
-
-        //Debug.Log(speedCap);
     }
 
     float positionCount;
@@ -358,8 +350,6 @@ public class Player : MonoBehaviour
 
             if (chanceOfObstacle == 0)
             {
-                //Debug.Log("obstacle");
-
                 //spawning obstacle
                 Vector3 topObstaclePos = backgroundPos;
 
@@ -368,10 +358,7 @@ public class Player : MonoBehaviour
                 Vector3 bottomObstaclePos = backgroundPos;
 
                 bottomObstaclePos.y = -1.423f;
-                if (maps[randomBG] == PitMap)
-                {
-                    //GameObject obstacle = Instantiate(TopObstacle, topObstaclePos, Quaternion.identity, ObstacleParent);
-                }
+                if (maps[randomBG] == PitMap){}
                 else if(maps[randomBG] == LavaMap){}
                 else
                 {
@@ -389,7 +376,6 @@ public class Player : MonoBehaviour
             }
             else if (chanceOfObstacle == 1)
             {
-                //Debug.Log("spikes");
                 //spawning spikes
                 Vector3 topSpikesPos = backgroundPos;
 
@@ -457,12 +443,7 @@ public class Player : MonoBehaviour
             PickUpOnePos.y = UnityEngine.Random.Range(-2,4);
             PickUpOnePos.x = UnityEngine.Random.Range(backgroundPos.x-15,backgroundPos.x+15);
 
-            // Vector3 PickUpTwoPos = backgroundPos;
-            // PickUpTwoPos.y = UnityEngine.Random.Range(-2,4);
-            // PickUpTwoPos.x = UnityEngine.Random.Range(backgroundPos.x-15,backgroundPos.x+15);
-
             GameObject PickUpOne = Instantiate(PickUpOneGameObject, PickUpOnePos, Quaternion.identity, PickUpParent);
-            // GameObject PickUpTwo = Instantiate(PickUpTwoGameObject, PickUpTwoPos, Quaternion.identity, PickUpParent);
         }
 
 
@@ -485,7 +466,6 @@ public class Player : MonoBehaviour
             //Firing the launcher
             if (Input.GetMouseButtonDown(0))
             {
-                //Debug.Log(ammo);
                 if (ammo > 0)
                 {
                     ammo -= 1;

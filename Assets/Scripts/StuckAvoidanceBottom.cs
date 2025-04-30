@@ -17,8 +17,6 @@ public class StuckAvoidanceBottom : MonoBehaviour
         if (other == playerCollider)
         {
             Player playerScript = player.GetComponent<Player>();
-
-            //playerScript.transform.position += transform.up * Time.deltaTime * 300;
             
             playerScript.playerHealth -= 100f;
 

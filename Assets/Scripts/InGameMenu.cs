@@ -6,12 +6,6 @@ using UnityEngine.UI;
 public class InGameMenu : MonoBehaviour
 {
     [SerializeField] private Button firstSelectedButton;
-    //[SerializeField] private GameObject Soundtrack;
-
-    // void Start()
-    // {
-    //     firstSelectedButton.Select();
-    // }
     public void ChangeScene()
     {
         GameObject Soundtrack = GameObject.Find("Soundtrack");

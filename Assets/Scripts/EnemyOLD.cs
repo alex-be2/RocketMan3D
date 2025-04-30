@@ -19,6 +19,5 @@ public class Enemy : MonoBehaviour
     private void OnTriggerStay(Collider other)
     {
         playerMat.color = Color.Lerp(playerMat.color, Color.red, 0.5f * Time.deltaTime);
-        //green.color = Color.white;
     }
 }

@@ -41,7 +41,6 @@ public class PickUpScript : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        // GameObject player = GameObject.Find("Player");
         Collider playerCollider = player.GetComponent<Collider>();
 
         if (other == playerCollider)
@@ -85,7 +84,6 @@ public class PickUpScript : MonoBehaviour
     void RedHealth()
     {
         float health = player.GetComponent<Player>().playerHealth;
-        //Debug.Log("Redfunc");
 
         if(health < 100)
         {
