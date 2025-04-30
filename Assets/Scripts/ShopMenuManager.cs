@@ -35,9 +35,6 @@ public class ShopMenuManager : MonoBehaviour
     {
         InsufficientFunds.SetActive(false);
         totalBalance = PlayerPrefs.GetInt("PointBalance",0);
-        // PlayerPrefs.SetInt("BuyButton00Selected",0);
-        // PlayerPrefs.SetInt("BuyButton01Selected",0);
-        // PlayerPrefs.SetInt("BuyButton02Selected",0);
 
         buyButton00Selected = PlayerPrefs.GetInt("BuyButton00Selected",0);
         buyButton01Selected = PlayerPrefs.GetInt("BuyButton01Selected",0);
