@@ -12,8 +12,6 @@ public class ObstacleDetector : MonoBehaviour
 
         Collider playerCollider = player.GetComponent<Collider>();
 
-        //Debug.Log("hit");
-
         if (other == playerCollider)
         {
             Player playerScript = player.GetComponent<Player>();

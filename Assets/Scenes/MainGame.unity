@@ -275,7 +275,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &85694377
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1184,6 +1184,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PickUp (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 605884976436475214, guid: 969f1eac9e429754588a475e1087a8ea, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7257864466297639027, guid: 969f1eac9e429754588a475e1087a8ea, type: 3}
       propertyPath: m_LocalPosition.x
       value: 32.47
@@ -1240,6 +1244,10 @@ PrefabInstance:
     - target: {fileID: 605884976436475214, guid: 969f1eac9e429754588a475e1087a8ea, type: 3}
       propertyPath: m_Name
       value: PickUp (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 605884976436475214, guid: 969f1eac9e429754588a475e1087a8ea, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7257864466297639027, guid: 969f1eac9e429754588a475e1087a8ea, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1298,9 +1306,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: PickUp
       objectReference: {fileID: 0}
+    - target: {fileID: 605884976436475214, guid: 969f1eac9e429754588a475e1087a8ea, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7257864466297639027, guid: 969f1eac9e429754588a475e1087a8ea, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 21.97
+      value: 12.860002
       objectReference: {fileID: 0}
     - target: {fileID: 7257864466297639027, guid: 969f1eac9e429754588a475e1087a8ea, type: 3}
       propertyPath: m_LocalPosition.y
@@ -5108,7 +5120,6 @@ GameObject:
   - component: {fileID: 1961497242}
   - component: {fileID: 1961497241}
   - component: {fileID: 1961497246}
-  - component: {fileID: 1961497247}
   - component: {fileID: 1961497248}
   - component: {fileID: 1961497249}
   m_Layer: 0
@@ -5296,27 +5307,6 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 120
   m_CollisionDetection: 1
---- !u!95 &1961497247
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1961497240}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 34c65d50556bc284081f407c14fec516, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!75 &1961497248
 ConstantForce:
   m_ObjectHideFlags: 0
@@ -5589,9 +5579,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: PickUp (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 605884976436475214, guid: 969f1eac9e429754588a475e1087a8ea, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7257864466297639027, guid: 969f1eac9e429754588a475e1087a8ea, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 25.71
+      value: 19.8
       objectReference: {fileID: 0}
     - target: {fileID: 7257864466297639027, guid: 969f1eac9e429754588a475e1087a8ea, type: 3}
       propertyPath: m_LocalPosition.y

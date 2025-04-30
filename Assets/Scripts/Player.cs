@@ -216,9 +216,6 @@ public class Player : MonoBehaviour
 
         if (HighScore < totalPoints)
         {
-            // Debug.Log($"HighScore:{HighScore}");
-            // Debug.Log($"TotalScore:{totalPoints}");
-            Debug.Log("Saving...");
             PlayerPrefs.SetInt("HighScore", totalPoints);
             PlayerPrefs.Save();
             HighScore = totalPoints;

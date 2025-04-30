@@ -33,13 +33,10 @@ public class ExplosionSound : MonoBehaviour
 
 
         sfxExplosion.pitch = Random.Range(0.5f, 1);
-        //sfxExplosion.volume = 0.2f;
         if(!sfxExplosion.isPlaying && Time.timeScale >= 0.1f)
         {
             sfxExplosion.Play();
         }
         Destroy(gameObject,1.8f);
-
-        //Debug.Log("BOOM");   
     }
 }
